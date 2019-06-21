@@ -22,6 +22,7 @@ namespace standart
 int main(int argc, char* argv[])
 {	
 	std::cout << "a";
+	std::cout << "b";
 	system("PAUSE");
 	return 0;
 
