@@ -1,5 +1,6 @@
 #include <cctype>
 #include <ctime>
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <stdio.h>
@@ -21,8 +22,11 @@ namespace standart
 
 int main(int argc, char* argv[])
 {	
-	std::cout << "a";
-	std::cout << "b";
+	for (size_t i = 0; i < argc; i++)
+	{
+		std::cout << argv[i] << "\n";
+	}
+	
 	system("PAUSE");
 	return 0;
 
