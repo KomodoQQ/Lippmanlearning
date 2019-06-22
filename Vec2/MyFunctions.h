@@ -233,5 +233,14 @@ void print(int intNum)
 	std::cout << intNum << std::endl;
 }
 
+void print(std::vector<int> vecIn)
+{
+	for (auto iter : vecIn)
+	{
+		std::cout << iter << " ";
+	}
+	std::cout << std::endl;
+}
+
 
 
