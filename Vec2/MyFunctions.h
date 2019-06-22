@@ -3,6 +3,7 @@
 #include <string>
 #include <cctype>
 #include <vector>
+#include <initializer_list>
 
 namespace standart
 {
@@ -199,6 +200,37 @@ void printVector(const std::vector<int> vecIn)
 	{
 		std::cout << it << " ";
 	}
+}
+
+void showCmdArgs(int argc, char* argv[])
+{
+	if (argc > 1)
+	{
+		for (size_t i = 1; i < argc; i++)
+		{
+			std::cout << argv[i] << "\n";
+		}
+	}
+}
+
+int sumListNumbers(std::initializer_list<int> numIn)
+{
+	int result = 0;
+	for (auto beg = numIn.begin(); beg != numIn.end(); beg++)
+	{
+		result += *beg;
+	}
+	return result;
+}
+
+const std::string& shorterString(const std::string& s1, const std::string& s2)
+{
+	return s1.size() <= s2.size() ? s1 : s2;
+}
+
+void print(int intNum)
+{
+	std::cout << intNum << std::endl;
 }
 
 
