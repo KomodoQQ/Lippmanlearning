@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+
 #include "MyFunctions.h"
 
 namespace standart
@@ -18,16 +19,25 @@ namespace standart
 	using std::endl;
 }
 
+int (*func1)(int a, int b);
+int sumInts(int a, int b)
+{
+	return a + b;
+}
 
 
 int main(int argc, char* argv[])
 {	
-	for (size_t i = 0; i < argc; i++)
+	std::vector<decltype(func1)> v1;
+	func1 = sumInts;
+	v1.push_back(func1);
+
+	for (auto i = v1.begin(); i != v1.end(); i++)
 	{
-		std::cout << argv[i] << "\n";
+		std::cout << i;
 	}
-	
+
 	system("PAUSE");
 	return 0;
-
 }
+

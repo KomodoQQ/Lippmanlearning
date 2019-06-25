@@ -4,6 +4,8 @@
 #include <cctype>
 #include <vector>
 #include <initializer_list>
+#include <cassert>
+
 
 namespace standart
 {
@@ -223,7 +225,7 @@ int sumListNumbers(std::initializer_list<int> numIn)
 	return result;
 }
 
-const std::string& shorterString(const std::string& s1, const std::string& s2)
+inline const std::string& shorterString(const std::string& s1, const std::string& s2)
 {
 	return s1.size() <= s2.size() ? s1 : s2;
 }
@@ -235,6 +237,11 @@ void print(int intNum)
 
 void print(std::vector<int> vecIn)
 {
+	assert(vecIn.size() > 0);
+#ifndef NDEBUG
+	std::cerr << __DATE__ << std::endl;
+#endif // !NDEBUG
+
 	for (auto iter : vecIn)
 	{
 		std::cout << iter << " ";
