@@ -9,6 +9,7 @@
 
 
 #include "MyFunctions.h"
+#include "Sales_data.h"
 
 namespace standart
 {
@@ -19,23 +20,35 @@ namespace standart
 	using std::endl;
 }
 
-int (*func1)(int a, int b);
-int sumInts(int a, int b)
+
+
+class Person
 {
-	return a + b;
+public:
+	
+	std::string getName() const { return name; }
+	std::string getAdress() const { return adress; }
+
+	void setName(std::string nameIn) { name = nameIn; }
+	void setAdress(std::string adressIn) { adress = adressIn; }
+
+private:
+	std::string name;
+	std::string adress;
+
+};
+
+
+std::ostream& printInfo(std::ostream& os, const Person& person)
+{
+	os << "Name: " << person.getName() << " Adress: " << person.getAdress();
+	return os;
 }
 
-
-int main(int argc, char* argv[])
+int main()
 {	
-	std::vector<decltype(func1)> v1;
-	func1 = sumInts;
-	v1.push_back(func1);
 
-	for (auto i = v1.begin(); i != v1.end(); i++)
-	{
-		std::cout << i;
-	}
+
 
 	system("PAUSE");
 	return 0;
