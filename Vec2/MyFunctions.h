@@ -235,13 +235,8 @@ void print(int intNum)
 	std::cout << intNum << std::endl;
 }
 
-void print(std::vector<int> vecIn)
+void print( const std::vector<int> vecIn)
 {
-	assert(vecIn.size() > 0);
-#ifndef NDEBUG
-	std::cerr << __DATE__ << std::endl;
-#endif // !NDEBUG
-
 	for (auto iter : vecIn)
 	{
 		std::cout << iter << " ";
