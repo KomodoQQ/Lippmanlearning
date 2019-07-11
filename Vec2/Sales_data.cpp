@@ -1,9 +1,9 @@
 #include "Sales_data.h"
 
-Sales_data::Sales_data(std::istream& is)
+/*Sales_data::Sales_data(std::istream& is) : Sales_data::Sales_data()
 {
 	read(is, *this);
-}
+}*/
 
 
 
