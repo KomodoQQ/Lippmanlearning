@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <fstream>
 #include <vector>
 #include <initializer_list>
 #include <cassert>
@@ -244,5 +245,70 @@ void print( const std::vector<int> vecIn)
 	std::cout << std::endl;
 }
 
+void horseTimeConverter(int numIn)
+{
+	
+	int time = numIn / 3000;
+	int hours = time / 60;
+	int minutes = time % 60;
+	
+	std::cout << hours << "h " << minutes << "m" << std::endl;
+
+}
+
+void horseTimeCalc()
+{
+	int num = 0, sum = 0;
+	std::vector<int> experience;
+	while (std::cin >> num && num != 0)
+	{
+		experience.push_back(num);
+		sum += num;
+	}
+	int counter = 1;
+	for (auto i : experience)
+	{
+		std::cout << counter << " lvl " << i << "exp" << " = ";
+		horseTimeConverter(i);
+		counter++;
+	}
+	counter = 1;
+	int time = sum / 3000;
+	int hours = time / 60;
+	int minutes = time % 60;
+	std::cout << "\n" << hours << "h " << minutes << "m" << std::endl;
+	
+}
+
+std::istream& streamFunc(std::istream& obj)
+{
+	auto state = obj.rdstate();
+	int a = 0, result = 0;
+	while (obj >> a && !obj.eof())
+	{
+		result += a;
+	}
+	std::cout << result;
+	obj.clear();
+	
+	
+	return obj;
+}
+
+void filetoVec(std::string fileName, std::vector<std::string>& vecIn)
+{
+	std::ifstream readStream;
+	readStream.open(fileName);
+	
+	std::string str;
+	
+	while (!readStream.eof())
+	{
+		std::getline(readStream, str);
+		vecIn.push_back(str);
+	}
+	
+	readStream.close();
+}
 
 

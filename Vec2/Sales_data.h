@@ -7,10 +7,10 @@ class Sales_data
 	friend std::ostream& print(std::ostream& os, const Sales_data& item);
 	friend Sales_data add(const Sales_data& lhs, const Sales_data& rhs);
 public:
-	Sales_data(const std::string& s, unsigned n, double p) : bookNo(s), units_sold(n), revenue(p* n) { std::cout << "Base"; };
-	Sales_data() : Sales_data(" ", 0, 0) { std::cout << "First"; };
-	Sales_data(const std::string& s) : Sales_data(s,0,0) { std::cout << "Second"; };
-	Sales_data(std::istream& is) : Sales_data() { std::cout << "Third"; read(is, *this);  };
+	Sales_data() = default;
+	Sales_data(const std::string& s) : bookNo(s) {};
+	Sales_data(const std::string& s, unsigned n, double p) : bookNo(s), units_sold(n), revenue(p* n) {};
+	Sales_data(std::istream&);
 
 	std::string isbn() const { return bookNo; }
 	Sales_data& combine(const Sales_data&);

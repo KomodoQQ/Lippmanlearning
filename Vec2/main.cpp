@@ -40,6 +40,27 @@ private:
 
 };
 
+class Debug
+{
+public:
+
+	constexpr Debug(bool b = true) : hardware(b), io(b), other(b) {};
+	constexpr Debug(bool h, bool i, bool o) : hardware(h), io(i), other(o) {};
+	constexpr bool any()
+	{
+		return hardware || io || other;
+	}
+
+	void set_io(bool b) { io = b; }
+	void set_hardware(bool b) { hardware = b; }
+	void set_other(bool b) { other = b; }
+
+private:
+	bool hardware; //Hardware error
+	bool io; // IO error
+	bool other; // Other errors
+};
+
 
 std::ostream& printInfo(std::ostream& os, const Person& person)
 {
@@ -51,10 +72,16 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 
 int main()
 {
+	std::vector<std::string> myVec;
+	std::string fileName = "ReadFile.txt";
 	
-	Sales_data book1(std::cin);
-	print(std::cout, book1);
-	
+	filetoVec(fileName, myVec);
+	std::cout << "Printing vector: \n";
+
+	for (auto i : myVec)
+	{
+		std::cout << i << std::endl;
+	}
 
 	system("PAUSE");
 	return 0;
