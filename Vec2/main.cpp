@@ -2,6 +2,7 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <stdexcept>
 #include <stdio.h>
 #include <string>
@@ -72,16 +73,23 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 
 int main(int argc, char* argv[])
 {
+	std::vector<std::string> myVec;
+	std::string myFile;
+	std::cout << "Enter file name to read from: \n";
+	std::cin >> myFile;
 
-	Sales_data obj;
+	filetoVec(myFile, myVec);
 
-	std::ifstream input(argv[1]);
-	std::ofstream output(argv[2], std::ios::app);
-
-	read(input, obj);
-	input.close();
-	print(output, obj);
-	output.close();
+	for (auto string : myVec)
+	{
+		std::string buff;
+		std::istringstream myStream(string);
+		while (!myStream.eof())
+		{
+			myStream >> buff;
+			std::cout << buff << "\n";
+		}
+	}
 
 	system("PAUSE");
 	return 0;

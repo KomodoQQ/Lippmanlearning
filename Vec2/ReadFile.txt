@@ -1,1 +1,2 @@
-QWE-RTY-UIO 25 10
+C++ is programming.
+Language developed by Bjarne Stroustrup. Starting in 1979 at Bell Labs.

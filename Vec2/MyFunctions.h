@@ -280,18 +280,16 @@ void horseTimeCalc()
 	
 }
 
-std::istream& streamFunc(std::istream& obj)
+std::istream& streamFunc(std::istream& obj) //8.1.2 (p.404)
 {
 	auto state = obj.rdstate();
-	int a = 0, result = 0;
-	while (obj >> a && !obj.eof())
+	std::string a;
+	while (obj >> a)
 	{
-		result += a;
+		std::cout << a << " ";
 	}
-	std::cout << result;
-	obj.clear();
-	
-	
+
+	obj.clear();	
 	return obj;
 }
 
@@ -310,5 +308,4 @@ void filetoVec(std::string fileName, std::vector<std::string>& vecIn) //Reading 
 	
 	readStream.close();
 }
-
 
