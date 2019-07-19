@@ -69,27 +69,43 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 	return os;
 }
 
+struct PersonInfo
+{
+	std::string name;
+	std::vector<std::string> phones;
+};
+
 
 
 int main(int argc, char* argv[])
 {
-	std::vector<std::string> myVec;
-	std::string myFile;
-	std::cout << "Enter file name to read from: \n";
-	std::cin >> myFile;
+	std::string line, word;
+	std::vector<PersonInfo> people;
+	std::istringstream record;
+	std::ifstream readFile("ReadFile.txt");
 
-	filetoVec(myFile, myVec);
-
-	for (auto string : myVec)
+	while (std::getline(readFile, line))
 	{
-		std::string buff;
-		std::istringstream myStream(string);
-		while (!myStream.eof())
+		PersonInfo info;
+		record.clear();
+		record.str(line);
+		record >> info.name;
+		while (record >> word)
 		{
-			myStream >> buff;
-			std::cout << buff << "\n";
+			info.phones.push_back(word);
+			
 		}
+		people.push_back(info);
+		
 	}
+	for (auto p : people)
+	{
+		std::cout << p.name << " ";
+		for (auto s : p.phones)
+			std::cout << s << " ";
+		std::cout << std::endl;
+	}
+
 
 	system("PAUSE");
 	return 0;
