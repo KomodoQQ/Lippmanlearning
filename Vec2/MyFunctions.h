@@ -295,7 +295,7 @@ std::istream& streamFunc(std::istream& obj)
 	return obj;
 }
 
-void filetoVec(std::string fileName, std::vector<std::string>& vecIn)
+void filetoVec(std::string fileName, std::vector<std::string>& vecIn) //Reading from file into vector of strings
 {
 	std::ifstream readStream;
 	readStream.open(fileName);

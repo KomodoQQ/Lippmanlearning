@@ -70,18 +70,18 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 
 
 
-int main()
+int main(int argc, char* argv[])
 {
-	std::vector<std::string> myVec;
-	std::string fileName = "ReadFile.txt";
-	
-	filetoVec(fileName, myVec);
-	std::cout << "Printing vector: \n";
 
-	for (auto i : myVec)
-	{
-		std::cout << i << std::endl;
-	}
+	Sales_data obj;
+
+	std::ifstream input(argv[1]);
+	std::ofstream output(argv[2], std::ios::app);
+
+	read(input, obj);
+	input.close();
+	print(output, obj);
+	output.close();
 
 	system("PAUSE");
 	return 0;
