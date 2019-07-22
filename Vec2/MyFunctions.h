@@ -309,3 +309,34 @@ void filetoVec(std::string fileName, std::vector<std::string>& vecIn) //Reading 
 	readStream.close();
 }
 
+std::vector<int>::iterator checkNumberinVector(std::vector<int>::iterator begin, std::vector<int>::iterator end, int numIn) //Task 9.4
+{
+	auto result = begin;
+	while (begin != end)
+	{
+		if (*begin == numIn)
+		{
+			result = begin;
+			return result;
+		}
+		begin++;
+	}
+	std::cout << "Number %d was not found!", numIn;
+	return result;
+}
+
+void addToForwardList(std::forward_list<std::string> list, std::string checkStr, std::string insertString)
+{
+	auto prev = list.before_begin();
+	for (auto i = list.begin(); i != list.end(); i++)
+	{
+		if (*i == checkStr)
+		{
+			list.insert_after(i, insertString);
+			return;
+		}
+		prev++;
+	}
+	list.insert_after(prev, insertString);
+}
+

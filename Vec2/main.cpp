@@ -1,7 +1,10 @@
 #include <cctype>
 #include <ctime>
+#include <deque>
+#include <forward_list>
 #include <fstream>
 #include <iostream>
+#include <list>
 #include <sstream>
 #include <stdexcept>
 #include <stdio.h>
@@ -62,50 +65,82 @@ private:
 	bool other; // Other errors
 };
 
-
 std::ostream& printInfo(std::ostream& os, const Person& person)
 {
 	os << "Name: " << person.getName() << " Adress: " << person.getAdress();
 	return os;
 }
 
-struct PersonInfo
-{
-	std::string name;
-	std::vector<std::string> phones;
-};
-
-
 
 int main(int argc, char* argv[])
 {
-	std::string line, word;
-	std::vector<PersonInfo> people;
-	std::istringstream record;
-	std::ifstream readFile("ReadFile.txt");
-
-	while (std::getline(readFile, line))
+	std::vector<int> myVec;
+	std::list<int> myList;
+	std::forward_list<int> fwList = { 0,1,1,2,3,5,8,13,21,55,89 };
+	auto prev = fwList.before_begin();
+	auto current = fwList.begin();
+	while (current != fwList.end())
 	{
-		PersonInfo info;
-		record.clear();
-		record.str(line);
-		record >> info.name;
-		while (record >> word)
+		if (*current%2 == 1)
 		{
-			info.phones.push_back(word);
-			
+			current = fwList.erase_after(prev);
 		}
-		people.push_back(info);
-		
-	}
-	for (auto p : people)
-	{
-		std::cout << p.name << " ";
-		for (auto s : p.phones)
-			std::cout << s << " ";
-		std::cout << std::endl;
+		else
+		{
+			current++;
+			prev++;
+		}
 	}
 
+	for (auto i : fwList)
+	{
+		std::cout << i;
+	}
+
+	int ia[] = { 0,1,1,2,3,5,8,13,21,55,89 };
+	int size = sizeof(ia) / sizeof(ia[0]);
+	for (size_t i = 0; i < size; i++)
+	{
+		myVec.push_back(ia[i]);
+		myList.push_back(ia[i]);
+	}
+	for (auto iter = myVec.begin(); iter != myVec.end();)
+	{
+		if (*iter%2 == 0)
+		{
+			iter = myVec.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+
+	std::cout << "Vector:\n";
+	for (auto i : myVec)
+	{
+		std::cout << i << " ";
+	}
+
+	for (auto iter = myList.begin(); iter != myList.end();)
+	{
+		if (*iter % 2 == 1)
+		{
+			iter = myList.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+
+	std::cout << "\nList:\n";
+	for (auto i : myList)
+	{
+		std::cout << i << " ";
+	}
+
+	
 
 	system("PAUSE");
 	return 0;
