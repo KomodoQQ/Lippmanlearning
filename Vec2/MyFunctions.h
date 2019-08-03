@@ -386,15 +386,37 @@ void numSearch(std::string str)
 	std::cout << std::endl;
 }
 
-void elimDups(std::vector<int>& vec)
+void elimDups(std::vector<std::string>& vec)
 {
-	std::cout << "Sorted sequence: ";
 	std::sort(vec.begin(), vec.end());
-	print(vec);
-	std::cout << "Unique sequence: ";
+	
 	auto forErase = std::unique(vec.begin(), vec.end());
-	print(vec);
-	std::cout << "Sequence after deleting duplicates: ";
-	vec.erase(forErase, vec.end());
-	print(vec);
+	
+	vec.erase(forErase, vec.end());	
+}
+
+bool isShorter(const std::string& s1, const std::string& s2)
+{
+	return s1.size() < s2.size();
+}
+
+bool lengthShorter(const std::string& s1)
+{
+	if (s1.size() == 5)
+	{
+		return true;
+	}
+	else return false;
+}
+
+void stringToWords(const std::string& strIn, std::vector<std::string>& vecIn)
+{
+	std::istringstream stream(strIn);
+	std::string word;
+	
+	while (stream >> word)
+	{
+		vecIn.push_back(word);
+	}
+		
 }
