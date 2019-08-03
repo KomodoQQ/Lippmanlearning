@@ -325,7 +325,7 @@ std::vector<int>::iterator checkNumberinVector(std::vector<int>::iterator begin,
 	return result;
 }
 
-void addToForwardList(std::forward_list<std::string> list, std::string checkStr, std::string insertString)
+void addToForwardList(std::forward_list<std::string>& list, std::string const& checkStr, std::string const& insertString)
 {
 	auto prev = list.before_begin();
 	for (auto i = list.begin(); i != list.end(); i++)
@@ -340,3 +340,61 @@ void addToForwardList(std::forward_list<std::string> list, std::string checkStr,
 	list.insert_after(prev, insertString);
 }
 
+//Task 9.44 p 467
+void replace_word(std::string& s, std::string oldVal,const std::string& newVal)
+{
+
+	for (size_t i = 0; i <= s.size() - oldVal.size();)
+	{
+		std::string temp(s, i, oldVal.size());
+		if (temp == oldVal)
+		{
+			s.replace(i, oldVal.size(), newVal);
+			i += oldVal.size();
+		}
+		else
+		{
+			i++;
+		}
+
+	}
+
+}
+//Task 9.45 p 467
+void nameChange(std::string& name, std::string prefix, const std::string& suffix)
+{
+	name.insert(name.begin(),prefix.begin(),prefix.end());
+	name.append(suffix);
+}
+
+void numSearch(std::string str)
+{
+	std::string numbers = { "0123456789" };
+	std::string::size_type pos = 0;
+	while ((pos = str.find_first_of(numbers, pos)) != std::string::npos)
+	{
+		std::cout << str[pos];
+		pos++;
+	}
+	std::cout << std::endl;
+	pos = 0;
+	while ((pos = str.find_first_not_of(numbers, pos)) != std::string::npos)
+	{
+		std::cout << str[pos];
+		pos++;
+	}
+	std::cout << std::endl;
+}
+
+void elimDups(std::vector<int>& vec)
+{
+	std::cout << "Sorted sequence: ";
+	std::sort(vec.begin(), vec.end());
+	print(vec);
+	std::cout << "Unique sequence: ";
+	auto forErase = std::unique(vec.begin(), vec.end());
+	print(vec);
+	std::cout << "Sequence after deleting duplicates: ";
+	vec.erase(forErase, vec.end());
+	print(vec);
+}
