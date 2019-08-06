@@ -5,6 +5,8 @@
 #include <fstream>
 #include <functional>
 #include <vector>
+#include <map>
+#include <set>
 #include <initializer_list>
 #include <cassert>
 
@@ -17,6 +19,7 @@ namespace standart
 	using std::cin;
 	using std::endl;
 }
+using namespace std::placeholders;
 
 
 //Iterators 3.4. Reading line of integers from 0 to 100 and dividing that numbers on clusters (0-9, 10-19 ... etc)
@@ -187,7 +190,6 @@ std::string stringToLower(std::string& s1)
 			s1[iter] = tolower(s1[iter]);
 		}
 	}
-
 	return s1;
 }
 
@@ -422,12 +424,17 @@ void stringToWords(const std::string& strIn, std::vector<std::string>& vecIn)
 		
 }
 
+bool check_size(const std::string& str, size_t sz)
+{
+	return str.size() >= sz;
+}
+
 void biggies(std::vector<std::string>& words, std::vector<std::string>::size_type sz)
 {
 	elimDups(words);
 	std::stable_sort(words.begin(), words.end(), [](const std::string& a, const std::string& b)
 		{return a.size() < b.size(); });
-	auto wc = find_if(words.begin(), words.end(), [sz](const std::string& a) {return a.size() >= sz; });
+	auto wc = find_if(words.begin(), words.end(), std::bind(check_size, _1, sz));
 
 	auto count = words.end() - wc;
 	std::cout << count << " words of size " << sz << " or higher" << std::endl;
@@ -436,8 +443,8 @@ void biggies(std::vector<std::string>& words, std::vector<std::string>::size_typ
 	std::cout << std::endl;
 }
 
-bool check_size(const std::string& str, size_t sz)
+void addPerson(std::map<std::string, std::vector<std::string>>& map, std::string familyName, std::string child)
 {
-	return str.size() < sz;
+	map[familyName].push_back(child);
 }
 

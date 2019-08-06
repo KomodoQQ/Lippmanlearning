@@ -5,8 +5,11 @@
 #include <forward_list>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <list>
-#include<numeric>
+#include <map>
+#include <numeric>
+#include <set>
 #include <sstream>
 #include <stack>
 #include <stdexcept>
@@ -26,7 +29,7 @@ namespace standart
 	using std::cin;
 	using std::endl;
 }
-using namespace std::placeholders;
+//using namespace std;
 
 
 class Person
@@ -79,18 +82,23 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 
 int main(int argc, char* argv[])
 {
+	std::map<std::string, std::vector<std::string>> family;
 	
-	std::vector<std::string> v{ "the", "quick", "red", "fox", "jumps", "over", "the", "slow", "red", "turtle" };
-
-	std::vector<int> vec{ 1,2,3,4,2,23,11,22,2,3 };
-	std::string str{ "asdasd" };
-	auto result = std::find_if(vec.begin(), vec.end(), std::bind(check_size, str, _1));
-
-	if (result != vec.end())
-		std::cout << *result << std::endl;
-	else
-		std::cout << "Not found" << std::endl;
-	
+	addPerson(family, "Jackson", "John");
+	addPerson(family, "Jackson", "Mary");
+	addPerson(family, "Jackson", "Shon");
+	addPerson(family, "Connery", "John");
+	addPerson(family, "Connery", "Alfred");
+	addPerson(family, "Jackson", "John");
+	for (auto i : family)
+	{
+		std::cout << "Family: " << i.first << " Child: ";
+		for (const auto& c : i.second)
+		{
+			std::cout << c << ", ";
+		}
+		std::cout << std::endl;
+	}
 	system("PAUSE");
 	return 0;
 }
