@@ -3,6 +3,7 @@
 #include <string>
 #include <cctype>
 #include <fstream>
+#include <functional>
 #include <vector>
 #include <initializer_list>
 #include <cassert>
@@ -420,3 +421,23 @@ void stringToWords(const std::string& strIn, std::vector<std::string>& vecIn)
 	}
 		
 }
+
+void biggies(std::vector<std::string>& words, std::vector<std::string>::size_type sz)
+{
+	elimDups(words);
+	std::stable_sort(words.begin(), words.end(), [](const std::string& a, const std::string& b)
+		{return a.size() < b.size(); });
+	auto wc = find_if(words.begin(), words.end(), [sz](const std::string& a) {return a.size() >= sz; });
+
+	auto count = words.end() - wc;
+	std::cout << count << " words of size " << sz << " or higher" << std::endl;
+
+	std::for_each(wc, words.end(), [](const std::string& s) {std::cout << s << " "; });
+	std::cout << std::endl;
+}
+
+bool check_size(const std::string& str, size_t sz)
+{
+	return str.size() < sz;
+}
+

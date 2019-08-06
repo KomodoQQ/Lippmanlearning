@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cctype>
 #include <ctime>
 #include <deque>
@@ -5,7 +6,9 @@
 #include <fstream>
 #include <iostream>
 #include <list>
+#include<numeric>
 #include <sstream>
+#include <stack>
 #include <stdexcept>
 #include <stdio.h>
 #include <string>
@@ -23,6 +26,7 @@ namespace standart
 	using std::cin;
 	using std::endl;
 }
+using namespace std::placeholders;
 
 
 class Person
@@ -65,6 +69,7 @@ private:
 	bool other; // Other errors
 };
 
+
 std::ostream& printInfo(std::ostream& os, const Person& person)
 {
 	os << "Name: " << person.getName() << " Adress: " << person.getAdress();
@@ -74,74 +79,18 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 
 int main(int argc, char* argv[])
 {
-	std::vector<int> myVec;
-	std::list<int> myList;
-	std::forward_list<int> fwList = { 0,1,1,2,3,5,8,13,21,55,89 };
-	auto prev = fwList.before_begin();
-	auto current = fwList.begin();
-	while (current != fwList.end())
-	{
-		if (*current%2 == 1)
-		{
-			current = fwList.erase_after(prev);
-		}
-		else
-		{
-			current++;
-			prev++;
-		}
-	}
-
-	for (auto i : fwList)
-	{
-		std::cout << i;
-	}
-
-	int ia[] = { 0,1,1,2,3,5,8,13,21,55,89 };
-	int size = sizeof(ia) / sizeof(ia[0]);
-	for (size_t i = 0; i < size; i++)
-	{
-		myVec.push_back(ia[i]);
-		myList.push_back(ia[i]);
-	}
-	for (auto iter = myVec.begin(); iter != myVec.end();)
-	{
-		if (*iter%2 == 0)
-		{
-			iter = myVec.erase(iter);
-		}
-		else
-		{
-			iter++;
-		}
-	}
-
-	std::cout << "Vector:\n";
-	for (auto i : myVec)
-	{
-		std::cout << i << " ";
-	}
-
-	for (auto iter = myList.begin(); iter != myList.end();)
-	{
-		if (*iter % 2 == 1)
-		{
-			iter = myList.erase(iter);
-		}
-		else
-		{
-			iter++;
-		}
-	}
-
-	std::cout << "\nList:\n";
-	for (auto i : myList)
-	{
-		std::cout << i << " ";
-	}
-
 	
+	std::vector<std::string> v{ "the", "quick", "red", "fox", "jumps", "over", "the", "slow", "red", "turtle" };
 
+	std::vector<int> vec{ 1,2,3,4,2,23,11,22,2,3 };
+	std::string str{ "asdasd" };
+	auto result = std::find_if(vec.begin(), vec.end(), std::bind(check_size, str, _1));
+
+	if (result != vec.end())
+		std::cout << *result << std::endl;
+	else
+		std::cout << "Not found" << std::endl;
+	
 	system("PAUSE");
 	return 0;
 }
