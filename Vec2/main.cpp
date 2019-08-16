@@ -8,6 +8,7 @@
 #include <iterator>
 #include <list>
 #include <map>
+#include <memory>
 #include <numeric>
 #include <set>
 #include <sstream>
@@ -81,24 +82,12 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 
 
 int main(int argc, char* argv[])
-{
-	std::map<std::string, std::vector<std::string>> family;
+{	
 	
-	addPerson(family, "Jackson", "John");
-	addPerson(family, "Jackson", "Mary");
-	addPerson(family, "Jackson", "Shon");
-	addPerson(family, "Connery", "John");
-	addPerson(family, "Connery", "Alfred");
-	addPerson(family, "Jackson", "John");
-	for (auto i : family)
-	{
-		std::cout << "Family: " << i.first << " Child: ";
-		for (const auto& c : i.second)
-		{
-			std::cout << c << ", ";
-		}
-		std::cout << std::endl;
-	}
+	auto p = std::make_shared<int>(10);
+	std::cout << *p << " : " << p;
+
+
 	system("PAUSE");
 	return 0;
 }

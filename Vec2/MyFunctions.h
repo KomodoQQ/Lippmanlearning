@@ -443,8 +443,5 @@ void biggies(std::vector<std::string>& words, std::vector<std::string>::size_typ
 	std::cout << std::endl;
 }
 
-void addPerson(std::map<std::string, std::vector<std::string>>& map, std::string familyName, std::string child)
-{
-	map[familyName].push_back(child);
-}
+
 
