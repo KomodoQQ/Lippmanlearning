@@ -141,6 +141,32 @@ private:
 	std::map<std::string, std::shared_ptr<std::set<line_no>>> wm;
 };
 
+class HasPtr // Task 13.5
+{
+public:
+	HasPtr(const HasPtr& obj) : ps(new std::string(*obj.ps)), i(obj.i) {}
+	HasPtr(const std::string &s = std::string()) : ps(new std::string(s)), i(0) {}
+
+	HasPtr& operator=(HasPtr& obj) //Task 13.8
+	{
+		i = obj.i;
+		*ps = *obj.ps;
+		return *this;
+	}
+	~HasPtr() { delete ps; }
+private:
+	std::string* ps;
+	int i;
+};
+
+class X {
+public:
+	X() { std::cout << "X()" << std::endl; }
+	X(const X&) { std::cout << "X(const X&)" << std::endl; }
+	X& operator=(const X&) { std::cout << "X& operator=(const X&)" << std::endl; return *this; }
+	~X() { std::cout << "~X()" << std::endl; }
+};
+
 
 std::ostream& printInfo(std::ostream& os, const Person& person)
 {
@@ -151,8 +177,7 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 
 int main(int argc, char* argv[])
 {	
-	
-	
+		
 	
 	
 
