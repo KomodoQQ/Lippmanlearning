@@ -144,16 +144,30 @@ private:
 class HasPtr // Task 13.5
 {
 public:
+	void swap(HasPtr& rhs)
+	{
+		using std::swap;
+		swap(ps, rhs.ps);
+		swap(i, rhs.i);
+		std::cout << "Objects swaped!";
+	}
+	
+
+	friend bool operator<(const HasPtr& lhs, const HasPtr& rhs)
+	{
+		return *lhs.ps < *rhs.ps;
+	}
+
 	HasPtr(const HasPtr& obj) : ps(new std::string(*obj.ps)), i(obj.i) {}
 	HasPtr(const std::string &s = std::string()) : ps(new std::string(s)), i(0) {}
 
-	HasPtr& operator=(HasPtr& obj) //Task 13.8
+	HasPtr& operator=(HasPtr obj) //Task 13.8
 	{
-		i = obj.i;
-		*ps = *obj.ps;
+		this->swap(obj);
 		return *this;
 	}
 	~HasPtr() { delete ps; }
+	
 private:
 	std::string* ps;
 	int i;
@@ -167,6 +181,59 @@ public:
 	~X() { std::cout << "~X()" << std::endl; }
 };
 
+class TreeNode
+{
+public:
+	TreeNode(const TreeNode& obj) : count(obj.count), left(obj.left), right(obj.right), value(obj.value) { ++*count; }
+	TreeNode() : value(std::string()), count(new int(1)), left(nullptr), right(nullptr) { }
+	TreeNode& operator=(TreeNode& obj)
+	{
+		obj.count++;
+		if (--*obj.count == 0)
+		{
+			delete left;
+			delete right;
+			delete count;
+		}
+		value = obj.value;
+		count = obj.count;
+		right = obj.right;
+		left = obj.left;
+		return *this;
+	}
+	~TreeNode()
+	{
+		if (--*count == 0)
+		{
+			delete left;
+			delete right;
+			delete count;
+		}
+	}
+private:
+	std::string value;
+	int* count;
+	TreeNode* left;
+	TreeNode* right;
+};
+
+class BinStrTree {
+public:
+	BinStrTree() : root(new TreeNode()) { }
+	BinStrTree(const BinStrTree& obj) : root(new TreeNode(*obj.root)) { }
+	BinStrTree& operator=(BinStrTree& obj)
+	{
+		TreeNode* buffer = new TreeNode(*obj.root);
+		delete root;
+		root = buffer;
+		return *this;
+	}
+	~BinStrTree() { delete root; }
+
+private:
+	TreeNode* root;
+};
+
 
 std::ostream& printInfo(std::ostream& os, const Person& person)
 {
@@ -176,10 +243,11 @@ std::ostream& printInfo(std::ostream& os, const Person& person)
 
 
 int main(int argc, char* argv[])
-{	
-		
+{
+
+	std::vector<HasPtr> vec(3);
 	
-	
+	std::sort(vec.begin(), vec.end());
 
 	system("PAUSE");
 	return 0;
